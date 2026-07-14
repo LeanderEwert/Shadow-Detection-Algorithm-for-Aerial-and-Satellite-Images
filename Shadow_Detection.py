@@ -66,7 +66,7 @@ def shadow_detection(image_file, shadow_mask_file, convolve_window_size = 5, num
     labels = KMeans(n_clusters = num_thresholds + 1, max_iter = 10000).fit(flattened_sr_img).labels_
     flattened_sr_img = flattened_sr_img.flatten()
     df = pd.DataFrame({'sample_pixels': flattened_sr_img, 'cluster': labels})
-    threshold_value = df.groupby(['cluster']).min().max()[0]
+    threshold_value = df.groupby(['cluster']).min().max().iloc[0]
     df['Segmented'] = np.uint8(df['sample_pixels'] >= threshold_value)
     
     
